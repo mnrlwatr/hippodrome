@@ -9,6 +9,12 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HorseTest {
+    /*
+    The test stops when the first of these assertions fail.
+    This means that we don’t find out if any of the later assertions would have passed or failed, which can increase debugging time.
+    We can solve this problem by wrapping multiple assertions up into a single action (using assertAll() method).
+     */
+
     @Test
     void nullName() {
         Throwable exeption = assertThrows(IllegalArgumentException.class,

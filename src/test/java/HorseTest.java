@@ -3,6 +3,10 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -80,15 +84,33 @@ class HorseTest {
     void getDistance() {
         Horse horse = new Horse("Name", 200, 1000);
         assertEquals(1000, horse.getDistance());
+    }
+
+    @Test void zeroDistanceByDefault(){
         Horse horse2 = new Horse("Name", 200);
         assertEquals(0, horse2.getDistance());
-
     }
 
     @Test
-    public void isCalledGetRandomDouble() {
-
+    void moveInvokesGetRandom() {
+        try(MockedStatic<Horse> mockedStatic = Mockito.mockStatic(Horse.class)){
+            new Horse("MockHorse", 50, 300).move();
+            mockedStatic.verify(()->Horse.getRandomDouble(0.2,0.9));
+        }
     }
+    @ParameterizedTest
+    @ValueSource(doubles = {0.3, 0.4, 0.5, 0.6, 0.7, 0.8})
+   void move (double args){
+       try(MockedStatic<Horse> mockedStatic = Mockito.mockStatic(Horse.class)){
+           Horse horse = new Horse("alex",50,400);
+           mockedStatic.when(()->Horse.getRandomDouble(0.2,0.9)).thenReturn(args);
+           horse.move();
+           assertEquals(400+50*args,horse.getDistance());
+       }
+
+   }
+
+
 
 
 }

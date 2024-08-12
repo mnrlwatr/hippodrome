@@ -41,10 +41,23 @@ class HippodromeTest {
             horses.add(mock(Horse.class));
         }
         Hippodrome hippodrome = new Hippodrome(horses);
+
         hippodrome.move();
+
         for (Horse horse : horses) {
             Mockito.verify(horse).move();
         }
 
+    }
+
+    @Test
+    void getWinner(){
+        List<Horse> horses = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+           horses.add(new Horse("H"+i, i, i));
+        }
+        Hippodrome hippodrome = new Hippodrome(horses);
+
+        assertSame(horses.get(horses.size()-1),hippodrome.getWinner());
     }
 }

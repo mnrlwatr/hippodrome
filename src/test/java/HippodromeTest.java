@@ -1,11 +1,12 @@
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class HippodromeTest {
 
@@ -31,5 +32,19 @@ class HippodromeTest {
         Hippodrome hippodrome = new Hippodrome(horses);
         List<Horse> listFromGetHorse = hippodrome.getHorses();
         assertIterableEquals(horses,listFromGetHorse);
+    }
+
+    @Test
+    void invokingMoveByEachHorse (){
+        List<Horse> horses = new ArrayList<>();
+        for (int i = 0; i <50; i++) {
+            horses.add(mock(Horse.class));
+        }
+        Hippodrome hippodrome = new Hippodrome(horses);
+        hippodrome.move();
+        for (Horse horse : horses) {
+            Mockito.verify(horse).move();
+        }
+
     }
 }

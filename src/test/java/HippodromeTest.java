@@ -35,7 +35,7 @@ class HippodromeTest {
     }
 
     @Test
-    void invokingMoveByEachHorse (){
+    void moveInvocationByEachHorse (){
         List<Horse> horses = new ArrayList<>();
         for (int i = 0; i <50; i++) {
             horses.add(mock(Horse.class));

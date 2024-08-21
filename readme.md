@@ -1,5 +1,5 @@
 ﻿
-forked from pavlo-plynko/hippodrome<br />
+# ***Проект по теме: тестирование и логирование***
 https://javarush.com/quests/lectures/jru.module3.lecture01
 
 ## **Дана программа – иммитация ипподрома** <br />
